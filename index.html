@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en" class="h-full bg-slate-50 antialiased selection:bg-rose-500 selection:text-white">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e11d48'%3E%3Cpath d='M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z'/%3E%3C/svg%3E" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="BloodConnect - Match blood requirements with eligible donors while protecting sensitive personal information. Fast matching. Safer sharing. Better coordination." />
+    <meta name="theme-color" content="#dc2626" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Direct CSS Link -->
+    <link rel="stylesheet" href="/src/index.css" />
+
+    <title>BloodConnect | Privacy-First Blood Donation & Emergency Matching</title>
+    
+    <style>
+      /* Scoped Pre-loader Styles */
+      #app-preloader {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: #fafaf9;
+        font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+        color: #0f172a;
+        padding: 20px;
+        text-align: center;
+      }
+      .preloader-drop-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+      .preloader-ripple {
+        position: absolute;
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        background: rgba(225, 29, 72, 0.15);
+        animation: preloader-ping 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+      }
+      .preloader-drop {
+        width: 54px;
+        height: 54px;
+        background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+        border-radius: 50% 0 50% 50%;
+        transform: rotate(-45deg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 25px -5px rgba(225, 29, 72, 0.4);
+        animation: preloader-heartbeat 1.5s ease-in-out infinite;
+        z-index: 2;
+        cursor: pointer;
+      }
+      .preloader-heart {
+        transform: rotate(45deg);
+        width: 26px;
+        height: 26px;
+        fill: #ffffff;
+      }
+      .preloader-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #e11d48;
+        color: #ffffff !important;
+        text-decoration: none;
+        padding: 10px 22px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 14px;
+        box-shadow: 0 6px 16px -2px rgba(225, 29, 72, 0.35);
+        transition: all 0.2s ease;
+        margin-top: 20px;
+        cursor: pointer;
+        border: none;
+      }
+      .preloader-btn:hover {
+        background: #be123c;
+        transform: translateY(-1px);
+        box-shadow: 0 8px 20px -2px rgba(225, 29, 72, 0.5);
+      }
+      @keyframes preloader-heartbeat {
+        0%, 100% { transform: rotate(-45deg) scale(0.95); box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.6); }
+        50% { transform: rotate(-45deg) scale(1.08); box-shadow: 0 0 0 14px rgba(225, 29, 72, 0); }
+      }
+      @keyframes preloader-ping {
+        0% { transform: scale(0.8); opacity: 0.8; }
+        100% { transform: scale(1.4); opacity: 0; }
+      }
+    </style>
+  </head>
+  <body class="h-full font-sans text-slate-900 bg-slate-50 flex flex-col antialiased">
+    
+    <!-- React Root Entry -->
+    <div id="root" class="min-h-full flex flex-col">
+      <div id="app-preloader">
+        <div class="preloader-drop-wrapper">
+          <div class="preloader-ripple"></div>
+          <div class="preloader-drop" id="preloader-drop-click" title="Click to enter BloodConnect">
+            <svg class="preloader-heart" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </div>
+        </div>
+        
+        <div style="font-weight: 900; font-size: 24px; letter-spacing: -0.5px; color: #0f172a;">
+          Blood<span style="color: #e11d48;">Connect</span>
+        </div>
+        
+        <div style="font-size: 13px; color: #64748b; margin-top: 6px; font-weight: 600;">
+          Fast matching. Safer sharing. Better coordination.
+        </div>
+
+        <a href="http://localhost:5173/" class="preloader-btn" id="preloader-action-btn">
+          <span>Continue to Home Page →</span>
+        </a>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+      (function() {
+        if (window.location.protocol === 'file:') {
+          var actionBtn = document.getElementById('preloader-action-btn');
+          var statusEl = document.createElement('div');
+          statusEl.style.cssText = 'margin-top: 16px; font-size: 13px; color: #334155; max-width: 440px; line-height: 1.6; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; text-align: left; box-shadow: 0 4px 14px rgba(0,0,0,0.06);';
+          statusEl.innerHTML = '<strong style="color: #e11d48; display: block; font-size: 14px; margin-bottom: 6px;">⚡ Vite Server Required</strong>' +
+            'BloodLink is a modern React SPA and requires the development server to run.<br>' +
+            '• <strong>Option 1:</strong> Double-click <code style="background:#f1f5f9;padding:2px 5px;border-radius:4px;font-weight:600;">start.bat</code> in the BLOODLINK folder.<br>' +
+            '• <strong>Option 2:</strong> Open terminal in this folder and run <code style="background:#f1f5f9;padding:2px 5px;border-radius:4px;font-weight:600;">npm run dev</code>.<br>' +
+            '<div id="server-ping-status" style="margin-top:10px;font-size:12px;color:#059669;font-weight:700;">🔄 Checking if dev server is running on localhost:5173...</div>';
+          
+          if (actionBtn && actionBtn.parentNode) {
+            actionBtn.parentNode.appendChild(statusEl);
+          }
+
+          function checkServer() {
+            fetch('http://localhost:5173/', { mode: 'no-cors' })
+              .then(function() {
+                var pingEl = document.getElementById('server-ping-status');
+                if (pingEl) pingEl.textContent = '✅ Server is running! Redirecting to application now...';
+                setTimeout(function() {
+                  window.location.href = 'http://localhost:5173/';
+                }, 300);
+              })
+              .catch(function() {
+                var pingEl = document.getElementById('server-ping-status');
+                if (pingEl) pingEl.textContent = '⏳ Waiting for dev server to start (double click start.bat or run npm run dev)...';
+              });
+          }
+
+          checkServer();
+          setInterval(checkServer, 2000);
+        }
+      })();
+    </script>
+  </body>
+</html>
